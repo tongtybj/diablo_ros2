@@ -80,17 +80,9 @@ uint8_t Movement_Ctrl::release_control()
 
 void Movement_Ctrl::CtrlStatusMonitorHandle(const uint8_t ctrl_mode)
 { 
-    if(ctrl_mode & (1<<(vehicle->telemetry->id*2)))
+    if(ctrl_mode == 1)
     {
         ctrl_status = CTRL_OBTAINED;
-        dropCtrlCnt = 0;
-    }
-    else if(ctrl_mode & (1<<(4 + vehicle->telemetry->id*2)))        // another sdk handles control
-    {
-        if(ctrl_mode & 0x0F)
-            ctrl_status = CTRL_IDLE;
-        else
-            ctrl_status = CTRL_RELEASED;
         dropCtrlCnt = 0;
     }
     else        //if(ctrl_mode != OSDK_CTRL_MODE_MOTION)
